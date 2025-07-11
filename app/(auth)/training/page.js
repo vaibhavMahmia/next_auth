@@ -1,6 +1,11 @@
+import { verifyAuth } from '@/lib/auth';
 import { getTrainings } from '@/lib/training';
+import { redirect } from 'next/navigation';
 
 const TrainingPage = async () => {
+  const result = await verifyAuth();
+  if(!result.user) return redirect('/');
+
   const trainingSessions = getTrainings();
 
   return <main>
